@@ -1,13 +1,4 @@
-def printBoard(B):
-    for i in range(3):
-        for j in range(3):
-            if B[i][j] == 0:
-                print(". ", end=" ")
-            elif B[i][j] == 1:
-                print("X ", end=" ")
-            else:
-                print("O ", end=" ")
-        print()
+import random
 
 def check(B):
     r = 0
@@ -37,13 +28,6 @@ def check(B):
         r = B[0][2]
 
     return r
-
-def valid(B, i, j):
-    res = 0
-    if i >= 1 and i <= 3 and j >= 1 and j <= 3 and B[i-1][j-1] == 0:
-        res = 1
-    return res
-
 
 def copyBoard(B):
     b = [[0,0,0],
@@ -92,32 +76,31 @@ def minimax(B, depth, XtoMove):
         return bestMove, bestEval
     
 
-def OXEngine(B, maxDepth, XtoMove) :
-    printBoard(B)
-    move, evaluation = minimax(B, maxDepth, XtoMove)
-    if move == None :
-        print("The Game Is Already Finished")
-        return
-    print()
-    if evaluation == 1 :
-        print("X is Winning")
-    elif evaluation == -1 :
-        print("O is Winning")
-    else :
-        print("Position is Drawn")
-    print()
-    print("Best move in the position is: ")
-    print()
-    if XtoMove :
-        B[move[0]-1][move[1]-1] = 1
-    else :
-        B[move[0]-1][move[1]-1] = -1
-    printBoard(B)
+def generate(number) :
+    for game in range(number) :
+        moves = random.randint(0, 9)
+        result = 0
+        move = 0
+        board = [[0,0,0],[0,0,0],[0,0,0]]
+        player = 1
+        while move < moves and result == 0 :
+            move += 1
+            sq = getEmptySquares(board)
+            r,c = random.choice(sq)
+            board[r-1][c-1] = player
+            player *= -1
+            result = check(board)
+        
+        for i in range(3) :
+            for j in range(3) :
+                print(board[i][j], end=",")
+        currMove = (move%2==0)
+        if result != 0:
+            value = result
+        else:
+            depth = len(getEmptySquares(board))
+            ans = minimax(board,depth, currMove)
+            value = ans[1]
+        print(value)
 
-# B = [[1, 0, 1], [0, -1, 0], [-1, 0, 0]]
-# B = [[1, -1, 1], [0, 0, 0], [-1, 0, 0]]
-# B = [[-1, 1, 0], [0, 0, 0], [-1, 0, 1]]
-# B = [[0, 0, 0], [0, 0, 0], [0, 0, 0]]
-# B = [[0, 0, 0], [0, 1, 0], [0, 0, 0]]
-B = [[1,0,-1], [0,0,0], [-1,0,1]]
-OXEngine(B, 10, False)
+generate(10000)
