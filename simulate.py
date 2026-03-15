@@ -76,7 +76,7 @@ def start():
     while moves < 9 and result == 0 :
         moves+=1
 
-        curr = move(B);
+        curr = move(B)
         if moves % 2 == 1:
             B[curr[0]-1][curr[1]-1] = 1
         else :
