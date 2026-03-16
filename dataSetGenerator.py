@@ -103,4 +103,4 @@ def generate(number) :
             value = ans[1]
         print(value)
 
-generate(10000)
+generate(40000)
