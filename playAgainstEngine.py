@@ -38,20 +38,20 @@ def check(B):
 
     return r
 
-def valid(B, i, j):
+def valid(board, row, col):
     res = 0
-    if i >= 1 and i <= 3 and j >= 1 and j <= 3 and B[i-1][j-1] == 0:
+    if row >= 1 and row <= 3 and col >= 1 and col <= 3 and board[row-1][col-1] == 0:
         res = 1
     return res
 
 
-def copyBoard(B):
+def copyBoard(board):
     b = [[0,0,0],
                   [0,0,0],
                   [0,0,0]]
     for i in range(3):
         for j in range(3):
-            b[i][j] = B[i][j]
+            b[i][j] = board[i][j]
     return b
 
 def getEmptySquares(B):

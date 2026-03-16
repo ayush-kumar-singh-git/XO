@@ -64,28 +64,28 @@ def getEmptySquares(B):
                 squares.append((i+1, j+1))
     return squares
 
-def move(B) :
-    squares = getEmptySquares(B)
+def move(board) :
+    squares = getEmptySquares(board)
     x = random.choice(squares)
     return x
 
 def start():
     result = 0
     moves = 0
-    B = [[0, 0, 0], [0, 0, 0], [0, 0, 0]]
+    board = [[0, 0, 0], [0, 0, 0], [0, 0, 0]]
     while moves < 9 and result == 0 :
         moves+=1
 
-        curr = move(B)
+        curr = move(board)
         if moves % 2 == 1:
-            B[curr[0]-1][curr[1]-1] = 1
+            board[curr[0]-1][curr[1]-1] = 1
         else :
-            B[curr[0]-1][curr[1]-1] = -1
+            board[curr[0]-1][curr[1]-1] = -1
 
-        result = check(B)
+        result = check(board)
 
-    printBoard(B)
-    print()
+    # printBoard(board)
+    # print()
     return result
 
 def simulate(number):
@@ -93,7 +93,7 @@ def simulate(number):
     O = 0
     D = 0
     for i in range(number):
-        print(i+1)
+        # print(i+1)
         x = start()
         if x == 1:
             X+=1

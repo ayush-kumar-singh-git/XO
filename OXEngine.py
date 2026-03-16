@@ -92,6 +92,35 @@ def minimax(B, depth, XtoMove):
         return bestMove, bestEval
     
 
+def minimax(board, XtoMove):
+    result = check(board)
+    squares = getEmptySquares(board)
+    if result != 0 or len(squares) == 0:
+        return None, result
+    inf = 10000
+    if XtoMove == True :
+        bestEval = -1*inf
+        bestMove = None
+        for sq in squares:
+            b = copyBoard(board)
+            b[sq[0]-1][sq[1]-1] = 1
+            _, val = minimax(b, False)
+            if val > bestEval :
+                bestEval = val
+                bestMove = sq
+        return bestMove, bestEval
+    else :
+        bestEval = inf
+        bestMove = None
+        for sq in squares:
+            b = copyBoard(board)
+            b[sq[0]-1][sq[1]-1] = -1
+            _, val = minimax(b, True)
+            if val < bestEval :
+                bestEval = val
+                bestMove = sq
+        return bestMove, bestEval
+
 def OXEngine(B, maxDepth, XtoMove) :
     printBoard(B)
     move, evaluation = minimax(B, maxDepth, XtoMove)
